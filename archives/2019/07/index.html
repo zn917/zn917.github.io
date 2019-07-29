@@ -13,9 +13,9 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="author" content="John Doe">
+    <meta name="author" content="柊南">
     <meta name="renderer" content="webkit">
-    <meta name="copyright" content="John Doe">
+    <meta name="copyright" content="柊南">
     
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
@@ -346,6 +346,33 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2019/07/29/MySQL基于InnoDB的乐观锁、悲观锁理解/" >
+            
+                <span>MySQL基于InnoDB的乐观锁、悲观锁理解</span>
+        </a>
+        <div class="abstract-content">
+            MySQL基于InnoDB的乐观锁、悲观锁理解查看存储引擎1show engines;
+
+乐观锁每次获取数据的时候，都不担心数据被修改，所以每次获取数据的时候都不会进行加锁，但是在更新数据的时候需要判断数据是否被别人修改了，如果数据被其他线程修改不进行数据更新，没有被其他线程修改则进行数据更新，由于数据没有进行加锁，此期间数据可以被其他线程进行读写操作
+使用场景比较适合读取操作频繁的场景，如果出现大量的写入操作，数据发生冲突的可能性就会增大，为了保证数据的一致性，应用层需要不断的重新获取数据，这样会增加大量的查询操作，降低了系统的吞吐量
+使用方法使用数据版本（Version）记录机制实现...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/29</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2019/07/22/我的第一篇/" >
             
                 <span>my first blog</span>
@@ -483,9 +510,16 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 1
+        Total : 2
         </div>
         <!-- search  -->
         
@@ -498,6 +532,11 @@
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2019/07/29/MySQL基于InnoDB的乐观锁、悲观锁理解/" >MySQL基于InnoDB的乐观锁、悲观锁理解</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -551,7 +590,7 @@ jsonContent:
     <script>
     var siteMeta = {
         root: "/",
-        author: "John Doe"
+        author: "柊南"
     }
 </script>
     <!-- CDN failover -->
