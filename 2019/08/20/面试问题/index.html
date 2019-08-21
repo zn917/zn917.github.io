@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>我的第一篇博客 · 柊南的Blog</title>
+    <title>面试问题汇总1 · 柊南的Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >Welcome to my blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">我的第一篇博客</a>
+                <a href="#" class="post-name">面试问题汇总1</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            我的第一篇博客
+            面试问题汇总1
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">239</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/07/22</span>
+                    <span class="post-intro-time">2019/08/20</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,19 +395,113 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="我的第一篇博客"><a href="#我的第一篇博客" class="headerlink" title="我的第一篇博客"></a>我的第一篇博客</h2><p>其实很早之前就有做一个个人博客的念头了，一方面对于求职来说，无论是校招还是社招，拥有属于自己的个人博客无疑是个加分项 </p>
-<p>另一方面呢，在敲代码的时候经常会遇到各种各样的问题，在浏览无数帖子之后才解决的问题，可能身边的朋友问你：诶，我这个错误怎么回事啊，你帮我看看； 你看着比较眼熟，好像就是自己刚刚遇到的错误，却忘了是怎么解决的了，于是又要去翻各种技术贴问题贴。随时记录自己发生的问题，解决的问题 无疑是一个好习惯</p>
-<p>希望自己在接下来的道路可以做到随时记录，当然想法是好的，对于我这样的懒人来说还是道阻且长啊</p>
-<p>加油!</p>
+        <h1 id="面试问题详解及个人理解"><a href="#面试问题详解及个人理解" class="headerlink" title="面试问题详解及个人理解"></a>面试问题详解及个人理解</h1><h2 id="Java部分"><a href="#Java部分" class="headerlink" title="Java部分"></a>Java部分</h2><h3 id="为什么要同时覆盖hashcode和equals"><a href="#为什么要同时覆盖hashcode和equals" class="headerlink" title="为什么要同时覆盖hashcode和equals"></a>为什么要同时覆盖hashcode和equals</h3><p>回答这个问题首先要知道equals和hashcode是什么,</p>
+<p>我们在用JAVA创建自己的类的时候，一种比较常见的覆盖就是覆盖Object中的equals()方法和hashCode()方法。如果不这样做的话，就很可能违反Object.hashCode()的通用约定，从而在利用自己建的类构建需要Hash化的集合的正常工作。其中有一条约定很重要：</p>
+<p><strong>如果两个对象利用equals方法比较是相等的，那么这两个对象必须能返回同样的hashCode。</strong></p>
+<h4 id="延申：“-”和equals的区别"><a href="#延申：“-”和equals的区别" class="headerlink" title="延申：“==”和equals的区别"></a>延申：“==”和equals的区别</h4><p>参考：<a href="https://blog.csdn.net/lcsy000/article/details/82782864" target="_blank" rel="noopener">https://blog.csdn.net/lcsy000/article/details/82782864</a></p>
+<p>==是直接比较的两个对象的堆内存地址，如果相等，则说明这两个引用实际是指向同一个对象地址的。但是我们又常常碰到这样一个问题</p>
+<p>对于基本数据类型（byte，short，char，int，float，double，long，boolean）来说，他们是作为常量在方法区中的常量池里面以HashSet策略存储起来的，对于这样的字符串 “123” 也是相同的道理，在常量池中，一个常量只会对应一个地址，因此不管是再多的 123,”123” 这样的数据都只会存储一个地址，所以所有他们的引用都是指向的同一块地址，因此基本数据类型和String常量是可以直接通过==来直接比较的。<br>对于基本数据的包装类型（Byte, Short, Character，Integer，Float, Double，Long,  Boolean）除了Float和Double之外，其他的六种都是实现了常量池的，因此对于这些数据类型而言，一般我们也可以直接通过==来判断是否相等。那么再出一个问题考考大家</p>
+<p> Integer 在常量池中的存储范围为[-128,127]，127在这范围内，因此是直接存储于常量池的，而128不在这范围内，所以会在堆内存中创建一个新的对象来保存这个值，所以m，n分别指向了两个不同的对象地址，故而导致了不相等。</p>
+<p>在Object类型的equals方法是直接通过==来比较的，和==是没有任何区别的。</p>
+<p>那么为什么又要说equlas和==的区别呢？是因为equals方法是可以由我们自己重写的。</p>
+<p><img src="https://img-blog.csdn.net/20180920112411625?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xjc3kwMDA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>延申： 位移运算 n&gt;&gt;m  n*2的m次方</p>
+<h3 id="Interface和抽象类的区别"><a href="#Interface和抽象类的区别" class="headerlink" title="Interface和抽象类的区别"></a>Interface和抽象类的区别</h3><p>首先 interface可以继承多个 类只可以继承一个</p>
+<p>抽象类可以有普通非抽象方法 接口只能有抽象方法 一旦有了抽象方法，就一定要把这个类声明为抽象类</p>
+<p>抽象类可以有静态属性 接口不可以包含静态方法</p>
+<p>抽象类可以有构造方法 接口不能有构造方法</p>
+<p>抽象类中可以有普通成员变量，接口中没有普通成员变量（接口只能包含抽象方法）</p>
+<p>接口不可以有静态成员 常量</p>
+<h3 id="单例模式详解"><a href="#单例模式详解" class="headerlink" title="单例模式详解"></a>单例模式详解</h3><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p><strong>原理</strong>：每次比较两个相邻的元素，将较大的元素交换至右端。</p>
+<p><strong>思路</strong>：每次冒泡排序操作都会将<strong>相邻的两个元素</strong>进行比较，看是否满足大小关系要求，如果不满足，就交换这两个<strong>相邻</strong>元素的次序，一次冒泡至少让一个元素移动到它应该排列的位置，重复N次，就完成了冒泡排序。</p>
+<p>代码实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">-</span><br></pre></td></tr></table></figure>
 
+<p>  /**</p>
+<ul>
+<li>@program: JavaSpecialityDeep</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- @author: Mr.Zerah</span><br><span class="line">  - @create: 2018-10-25 22:52</span><br><span class="line">  - @description: 冒泡排序</span><br><span class="line">  - 冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否满足大小关系要求。</span><br><span class="line">  - 如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在的位置，重复n 次，</span><br><span class="line">  - 就完成了 n 个数据的排序工作。</span><br><span class="line">    **/</span><br><span class="line">    public class BubbleSort &#123;</span><br><span class="line">    public void bubbleSort(Integer[] arr, int n) &#123;</span><br><span class="line">        if (n &lt;= 1) return;       //如果只有一个元素就不用排序了</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> for (int i = 0; i &lt; n; ++i) &#123;</span><br><span class="line">       // 提前退出冒泡循环的标志位,即一次比较中没有交换任何元素，这个数组就已经是有序的了</span><br><span class="line">       boolean flag = false;</span><br><span class="line">       for (int j = 0; j &lt; n - i - 1; ++j) &#123;        //此处你可能会疑问的j&lt;n-i-1，因为冒泡是把每轮循环中较大的数飘到后面，</span><br><span class="line">           // 数组下标又是从0开始的，i下标后面已经排序的个数就得多减1，总结就是i增多少，j的循环位置减多少</span><br><span class="line">           if (arr[j] &gt; arr[j + 1]) &#123;        //即这两个相邻的数是逆序的，交换</span><br><span class="line">               int temp = arr[j];</span><br><span class="line">           arr[j] = arr[j + 1];</span><br><span class="line">           arr[j + 1] = temp;</span><br><span class="line">           flag = true;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!flag) break;//没有数据交换，数组已经有序，退出排序</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Integer arr[] = &#123;2, 4, 7, 6, 8, 5, 9&#125;;</span><br><span class="line">    SortUtil.show(arr);</span><br><span class="line">    BubbleSort bubbleSort = new BubbleSort();</span><br><span class="line">    bubbleSort.bubbleSort(arr, arr.length);</span><br><span class="line">    SortUtil.show(arr);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>参考文档：<a href="https://blog.csdn.net/qq_39207948/article/details/80006224" target="_blank" rel="noopener">https://blog.csdn.net/qq_39207948/article/details/80006224</a></p>
+<p>  代码：</p>
+<p>   public static void shellSort(inta[]) {</p>
+<pre><code>                intd= a.length;//gap的值
+
+                 while (true){
+
+                   d = d/ 2;//每次都将gap的值减半
+
+                   for (int x = 0; x&lt; d; x++) {//对于gap所分的每一个组
+
+                          for (int i = x+ d; i &lt; a.length; i= i + d) {      //进行插入排序
+
+                                 int temp= a[i];
+
+                                 intj;
+
+                                 for (j= i - d; j&gt;= 0 &amp;&amp; a[j] &gt; temp;j = j - d){
+                                        a[j+ d] = a[j];
+                                 }
+                                 a[j+ d] = temp;
+                          }
+
+                   }
+                   if (d== 1) {//gap==1，跳出循环
+                          break;
+                   }
+            }
+
+}</code></pre><h5 id="时间复杂度："><a href="#时间复杂度：" class="headerlink" title="时间复杂度："></a>时间复杂度：</h5><p>  <strong>最好情况</strong>：由于希尔排序的好坏和步长gap的选择有很多关系，因此，目前还没有得出最好的步长如何选择(现在有些比较好的选择了，但不确定是否是最好的)。所以，不知道最好的情况下的算法时间复杂度。</p>
+<p>  <strong>最坏情况下</strong>：O(N*logN)，最坏的情况下和平均情况下差不多。</p>
+<p>  已知的最好步长序列是由Sedgewick提出的(1, 5, 19, 41, 109,…)。</p>
+<p>  这项研究也表明“比较在希尔排序中是最主要的操作，而不是交换。”用这样步长序列的希尔排序比插入排序和堆排序都要快，甚至在小数组中比快速排序还快，但是在涉及大量数据时希尔排序还是比快速排序慢。</p>
+<p>  <strong>空间复杂度</strong></p>
+<p>  由直接插入排序算法可知，我们在排序过程中，需要一个临时变量存储要插入的值，所以空间复杂度为1。</p>
+<p>  <strong>算法稳定性</strong></p>
+<p>  希尔排序中相等数据可能会交换位置，所以希尔排序是不稳定的算法。</p>
+<p>  <img src="https://img-blog.csdn.net/20160518211404834?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>   ————————————————<br>  版权声明：本文为CSDN博主「Prepare_y」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。<br>  原文链接：<a href="https://blog.csdn.net/qq845579063/article/details/51447404" target="_blank" rel="noopener">https://blog.csdn.net/qq845579063/article/details/51447404</a></p>
+<h2 id="Mysql-amp-Oracle数据库部分"><a href="#Mysql-amp-Oracle数据库部分" class="headerlink" title="Mysql&amp;Oracle数据库部分"></a>Mysql&amp;Oracle数据库部分</h2><pre><code>———————————————— </code></pre><p>   版权声明：本文为CSDN博主「ZerahMu」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。<br>   原文链接：<a href="https://blog.csdn.net/NathanniuBee/article/details/83413879" target="_blank" rel="noopener">https://blog.csdn.net/NathanniuBee/article/details/83413879</a></p>
+<hr>
+<h3 id="主键索引和唯一索引的区别"><a href="#主键索引和唯一索引的区别" class="headerlink" title="主键索引和唯一索引的区别"></a>主键索引和唯一索引的区别</h3><pre><code>主键是一种约束，唯一索引是一种索引，两者在本质上是不同的。</code></pre><p>  主键创建后一定包含一个唯一性索引，唯一性索引并不一定就是主键。</p>
+<p>  唯一性索引列允许空值，而主键列不允许为空值。</p>
+<p>  主键列在创建时，已经默认为空值 + 唯一索引了。</p>
+<p>  主键可以被其他表引用为外键，而唯一索引不能。</p>
+<p>  一个表最多只能创建一个主键，但可以创建多个唯一索引。</p>
+<p>  主键更适合那些不容易更改的唯一标识，如自动递增列、身份证号等。  </p>
+<h3 id="Mysql和Oracle分页的应用"><a href="#Mysql和Oracle分页的应用" class="headerlink" title="Mysql和Oracle分页的应用"></a>Mysql和Oracle分页的应用</h3><p>MySQL有Limt  关键字作用是查出从第几到第几的数据</p>
+<p>Oracle使用到的是rowunm  这是一个标识。给每列前面加上序号（从1开始）。</p>
+<h3 id="左连接和右连接的区别"><a href="#左连接和右连接的区别" class="headerlink" title="左连接和右连接的区别"></a>左连接和右连接的区别</h3><p>左连接只影响右表，右链接只影响左表。</p>
+<p>左连接   （left join）   </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select *  from table1 left join tbale2 on table1.id=table2.id</span><br></pre></td></tr></table></figure>
+
+<p>这条sql语句返回结果   table1表中的数据全部返回   table2表中的数据只返回满足where条件的</p>
+<p>右链接   （right join）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table1 right join table2 on table1.id=table2.id</span><br></pre></td></tr></table></figure>
+
+<p>这条sql语句返回结果   table2表中的数据全部返回    table1表中的数据只返回满足where条件的</p>
+<pre><code>（inner join）</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table1 inner join table2 on table1.id = table2.id</span><br></pre></td></tr></table></figure>
+
+<p>这条sql语句返回结果   显示满足条件的数据   并不以谁为主表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://http://zn917.github.io">柊南</a>
-            <p>原文链接：<a href="https://http://zn917.github.io/2019/07/22/我的第一篇/">http://zn917.github.io/2019/07/22/我的第一篇/</a>
-            <p>发表日期：July 22nd 2019, 1:08:55 pm
-            <p>更新日期：July 29th 2019, 3:07:25 pm
+            <p>原文链接：<a href="https://http://zn917.github.io/2019/08/20/面试问题/">http://zn917.github.io/2019/08/20/面试问题/</a>
+            <p>发表日期：August 20th 2019, 3:02:55 pm
+            <p>更新日期：August 21st 2019, 10:59:25 pm
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -416,12 +510,17 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/07/29/MySQL基于InnoDB的乐观锁、悲观锁理解/" title= "MySQL基于InnoDB的乐观锁、悲观锁理解">
-                    <div class="nextTitle">MySQL基于InnoDB的乐观锁、悲观锁理解</div>
+                <a href= "/2019/08/21/Java面试问题2/" title= "">
+                    <div class="nextTitle">[Untitled Post]</div>
                 </a>
             
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/07/29/MySQL基于InnoDB的乐观锁、悲观锁理解/" title= "MySQL基于InnoDB的乐观锁、悲观锁理解">
+                    <div class="prevTitle">MySQL基于InnoDB的乐观锁、悲观锁理解</div>
+                </a>
             
         </li>
     </ul>
@@ -551,7 +650,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#我的第一篇博客"><span class="toc-number">1.</span> <span class="toc-text">我的第一篇博客</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#面试问题详解及个人理解"><span class="toc-number">1.</span> <span class="toc-text">面试问题详解及个人理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java部分"><span class="toc-number">1.1.</span> <span class="toc-text">Java部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要同时覆盖hashcode和equals"><span class="toc-number">1.1.1.</span> <span class="toc-text">为什么要同时覆盖hashcode和equals</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#延申：“-”和equals的区别"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">延申：“==”和equals的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Interface和抽象类的区别"><span class="toc-number">1.1.2.</span> <span class="toc-text">Interface和抽象类的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式详解"><span class="toc-number">1.1.3.</span> <span class="toc-text">单例模式详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序"><span class="toc-number">1.1.4.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#希尔排序"><span class="toc-number">1.1.5.</span> <span class="toc-text">希尔排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#时间复杂度："><span class="toc-number">1.1.5.0.1.</span> <span class="toc-text">时间复杂度：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql-amp-Oracle数据库部分"><span class="toc-number">1.2.</span> <span class="toc-text">Mysql&amp;Oracle数据库部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主键索引和唯一索引的区别"><span class="toc-number">1.2.1.</span> <span class="toc-text">主键索引和唯一索引的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mysql和Oracle分页的应用"><span class="toc-number">1.2.2.</span> <span class="toc-text">Mysql和Oracle分页的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#左连接和右连接的区别"><span class="toc-number">1.2.3.</span> <span class="toc-text">左连接和右连接的区别</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
